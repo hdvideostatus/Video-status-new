@@ -1,0 +1,15 @@
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.upload_card{
+    color: white;
+    padding: 44px 8px;
+    ion-icon{
+        font-size: 40px;
+        margin-right: 12px;
+    }
+}

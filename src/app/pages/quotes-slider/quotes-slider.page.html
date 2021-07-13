@@ -1,0 +1,51 @@
+<ion-content color="primary" [fullscreen]="true">
+  <ion-slides [options]="slideOpts" #mySlider *ngIf="getAllQuotes.length" (ionSlideDidChange)="slideChanged()"
+    (ionSlideNextEnd)="slideNextt()" (ionSlidePrevEnd)="slidePrevv()">
+    <ion-slide style="overflow: hidden" *ngFor="let quotRow of getAllQuotes; let index=index">
+      <div class="vidSection">
+        <img src="{{quotRow['quotes_thumb']}}?avoidCache={{index}}" alt="">
+      </div>
+      <ion-grid fixed style="    position: absolute;
+      bottom: 0;
+      width: auto;">
+        <ion-row>
+          <ion-col size="4">
+            <ion-fab-button *ngIf="!gs.isFavVideo" color="secondary" size="small" class="fab_btn"
+              (click)="gs.setFavouritesQuotes(quotRow);$event.stopPropagation()">
+              <ion-icon name="heart-outline" class="blkColor"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button *ngIf="gs.isFavVideo" color="secondary" size="small" class="fab_btn"
+              (click)="gs.removeFavQuotes(quotRow);$event.stopPropagation()">
+              <ion-icon name="heart" class="blkColor"></ion-icon>
+            </ion-fab-button>
+            <p class="count_text">{{quotRow.quotes_favourite}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <ion-fab-button (click)="viaVideoShare(quotRow);$event.stopPropagation()" *ngIf="!isVidShare"
+              color="secondary" size="small" class="fab_btn">
+              <ion-icon name="share-social-outline" class="blkColor"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button *ngIf="isVidShare" color="secondary" size="small" class="fab_btn">
+              <ion-spinner name="dots"></ion-spinner>
+            </ion-fab-button>
+            <p class="count_text">{{quotRow.quotes_share}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <ion-fab-button *ngIf="!downloadspinner" (click)="downloadVideo(quotRow);$event.stopPropagation()"
+              color="secondary" size="small" class="fab_btn">
+              <img src="assets/download.svg" alt="" style="width: 24px!important;" />
+            </ion-fab-button>
+            <ion-fab-button *ngIf="downloadspinner" color="secondary" size="small" class="fab_btn">
+              <ion-spinner name="dots"></ion-spinner>
+            </ion-fab-button>
+            <p class="count_text">{{quotRow.quotes_download}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <span
+        style="position: absolute;top: 10px;color: white;left: 16px;font-size: 14px;text-shadow: 0px 0px 8px black;text-align: left;">
+        <p style="margin-top: 6px;"><b>{{quotRow.language_name}}</b> - {{quotRow.category_name}}</p>
+      </span>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

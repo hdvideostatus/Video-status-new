@@ -1,0 +1,80 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.alert_ctrl{
+    .danger-btn{
+        color: red;
+        font-weight: 700;
+    }
+    .alert-message{
+        font-size: 18px;
+    }
+}
+
+.img_ovarlay{
+    bottom: 0;
+    display: flex;
+    height: 100%;
+    left: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 10px;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    background: linear-gradient(transparent,rgb(0 0 0 / 78%));
+    color: white;
+}
+
+.img_card{
+    border: 2px solid white;
+    border-radius: 10px;
+    height: 300px;
+    position: relative;
+    ion-img{
+        height: 100%;object-fit: cover;
+    }
+    p{
+        margin-top: auto;margin-bottom: 8px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis
+    }
+}
+
+.costom_item{
+    border: 1px solid #3dc2ff40;
+    margin-bottom: 16px;
+    box-shadow: 0px 0px 10px -3px white;
+}
+
+ion-infinite-scroll-content {
+    ion-spinner{
+        color: white;
+    }
+    .infinite-loading-text{
+        color: white;
+    }
+}

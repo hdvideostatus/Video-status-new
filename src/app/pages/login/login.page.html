@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{pageLabel}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+
+  <div class="profile_box">
+    <img *ngIf="!base64Image && gs.userData && gs.userData.user_profile != ''" [src]="gs.userData.user_profile"
+      alt="" />
+    <img *ngIf="base64Image" [src]="base64Image" alt="" />
+    <img *ngIf="!base64Image && !gs.userData.user_id && gs.userData.user_profile == ''" src="assets/avatar.png"
+      alt="" />
+    <ion-fab style="position: absolute;right: 0;bottom: 0;">
+      <ion-fab-button (click)="reffInput.click()" color="secondary" size="small">
+        <ion-icon name="camera-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <input type="file" #reffInput hidden (change)="fileChangeEvent($event)">
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <div class="ion-padding">
+      <ion-item color="primary" class="costom_item">
+        <ion-input placeholder="User Name" formControlName="user_name" name="user_name" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="primary" class="costom_item">
+        <ion-input placeholder="Email" formControlName="user_email" name="user_email" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="primary" class="costom_item">
+        <ion-input placeholder="Instagram Link" formControlName="user_instagram" name="user_instagram" type="text">
+        </ion-input>
+      </ion-item>
+      <ion-item color="primary" class="costom_item">
+        <ion-input placeholder="Telegram Link" formControlName="user_telegram" name="user_telegram" type="text">
+        </ion-input>
+      </ion-item>
+      <ion-item color="primary" class="costom_item">
+        <ion-input placeholder="Youtube Link" formControlName="user_youtube" name="user_youtube" type="text">
+        </ion-input>
+      </ion-item>
+      <div size="12" class="ion-text-center ion-padding-top">
+        <ion-button type="submit" class="ion-padding-horizontal" color="secondary" style="height: 50px;width: 170px;">
+          {{pageLabel}}
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</ion-content>

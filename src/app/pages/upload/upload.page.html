@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Upload Video</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-card (click)="reffInput.click()" class="upload_card costom_item" button color="primary">
+    <div class="ion-text-center">
+      <p style="align-items: center;display: flex;justify-content: center">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        <span *ngIf="!currentFileUpload">
+          Select video
+        </span>
+        <span *ngIf="currentFileUpload">
+          Replace video
+        </span>
+      </p>
+      <p>Mp4 only and max 5MB</p>
+    </div>
+  </ion-card>
+  <div class="ion-padding" *ngIf="currentFileUpload">
+    <ion-text color="light">
+      Video Name : {{currentFileUpload.name}}
+    </ion-text>
+  </div>
+  <form [formGroup]="uploadVidForm" (ngSubmit)="videoUplead()">
+    <input type="file" #reffInput hidden accept="video/mp4,video/x-m4v,video/*" (change)="fileChangeEvent($event)">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col *ngIf="gs.allVideoLanguage.length" size="12">
+          <ion-item color="primary" class="costom_item">
+            <ion-label>Select Langauge</ion-label>
+            <ion-select formControlName="language_id" (ionChange)="selectLangauge($event)">
+              <ng-container *ngFor="let item of gs.allVideoLanguage">
+                <ion-select-option [value]="item.language_id">{{item.language_name}}</ion-select-option>
+              </ng-container>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col *ngIf="allCategoryList.length" size="12">
+          <ion-item color="primary" class="costom_item">
+            <ion-label>Select Category</ion-label>
+            <ion-select formControlName="category_id" (ionChange)="selectLangauge($event)">
+              <ng-container *ngFor="let item of allCategoryList">
+                <ion-select-option [value]="item.category_id">{{item.category_name}}</ion-select-option>
+              </ng-container>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center ion-padding-top">
+          <ion-button type="submit" class="ion-padding-horizontal" color="secondary" style="height: 50px;width: 170px;">
+            Upload
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

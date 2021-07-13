@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Category</ion-title>
+    <!-- Discover -->
+    <ion-buttons slot="end">
+      <!-- <ion-button (click)="gs.languagePopup()">
+        <ion-icon slot="icon-only" color="tertiary" name="globe-outline"></ion-icon>
+      </ion-button> -->
+      <ion-button routerLink="/faverite">
+        <ion-icon slot="icon-only" color="danger" name="heart"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/download">
+        <ion-icon slot="icon-only" color="light" name="arrow-down-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ng-container *ngFor="let item of allCategoryList">
+    <ion-list-header style="border-left: 4px solid white;margin: 3px;">
+      <ion-label color="light">{{item.category_name}}</ion-label>
+      <ion-button color="light" (click)="getVideoListByCategory(item.category_id)">See All</ion-button>
+    </ion-list-header>
+    <div *ngIf="item.videoData.length" class="scroll_div">
+      <ng-container class="" *ngFor="let Row of item.videoData;let inx = index">
+        <img (click)="goVideoSlides(item.videoData,item.category_id, inx)" [src]="Row.video_thumb" alt=""
+          style="width: 120px;margin: 2px;object-fit: cover;border: 1px solid #717171;">
+      </ng-container>
+    </div>
+  </ng-container>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

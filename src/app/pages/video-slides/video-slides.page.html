@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true">
+  <ion-slides [options]="slideOpts" #mySlider *ngIf="getAllVideos.length" (ionSlideDidChange)="slideChanged()"
+    (ionSlideReachEnd)="loadMoreData()" (ionSlideNextEnd)="slideNextt()" (ionSlidePrevEnd)="slidePrevv()">
+    <ion-slide style="overflow: hidden" *ngFor="let vidRow of getAllVideos; let index=index">
+      <div class="vidSection">
+        <video id="isNewVideo{{index}}" controls muted controlsList="nodownload" loop disablePictureInPicture
+          class="videoPlayer" width="100%" [poster]="vidRow['video_thumb']">
+          <source src="{{vidRow['video_url']}}?avoidCache={{index}}" type="video/mp4" />
+        </video>
+      </div>
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 70px;">
+        <ion-fab-button color="secondary" size="small" class="fab_btn">
+          <ion-icon name="person-circle-outline" class="blkColor" style="font-size: 42px"></ion-icon>
+        </ion-fab-button>
+
+        <ion-fab-button *ngIf="!gs.isFavVideo" color="secondary" size="small" class="fab_btn"
+          (click)="gs.setFavourites(vidRow);$event.stopPropagation()">
+          <ion-icon name="heart-outline" class="blkColor"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button *ngIf="gs.isFavVideo" color="secondary" size="small" class="fab_btn"
+          (click)="gs.removeFavVideo(vidRow.video_id);$event.stopPropagation()">
+          <ion-icon name="heart" class="blkColor"></ion-icon>
+        </ion-fab-button>
+        <p class="count_text">{{vidRow.video_favourite}}</p>
+
+
+        <ion-fab-button (click)="viaVideoShare(vidRow);$event.stopPropagation()" *ngIf="!isVidShare" color="secondary"
+          size="small" class="fab_btn">
+          <ion-icon name="share-social-outline" class="blkColor"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button *ngIf="isVidShare" color="secondary" size="small" class="fab_btn">
+          <ion-spinner name="dots"></ion-spinner>
+        </ion-fab-button>
+        <p class="count_text">{{vidRow.video_share}}</p>
+
+
+        <ion-fab-button *ngIf="!downloadspinner" (click)="downloadVideo(vidRow);$event.stopPropagation()"
+          color="secondary" size="small" class="fab_btn">
+          <img src="assets/download.svg" alt="" style="width: 24px!important;" />
+        </ion-fab-button>
+        <ion-fab-button *ngIf="downloadspinner" color="secondary" size="small" class="fab_btn">
+          <ion-spinner name="dots"></ion-spinner>
+        </ion-fab-button>
+        <p class="count_text">{{vidRow.video_download}}</p>
+
+
+        <ion-fab-button (click)="gs.reportPopup(vidRow.video_id,vidRow.user_id);$event.stopPropagation()"
+          color="secondary" size="small" class="fab_btn">
+          <ion-icon name="warning-outline" class="blkColor"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <span
+        style="position: absolute;top: 10px;color: white;left: 16px;font-size: 14px;text-shadow: 0px 0px 8px black;text-align: left;">
+        <span>@{{vidRow.user_name}}</span>
+        <p style="margin-top: 6px;"><b>{{vidRow.language_name}}</b> - {{vidRow.category_name}}</p>
+      </span>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

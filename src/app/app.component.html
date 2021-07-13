@@ -1,0 +1,38 @@
+<ion-app>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Start Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content color="primary">
+      <!-- <ion-list color="primary"> -->
+      <ion-item button color="primary" (click)="quotes()">
+        <ion-icon slot="start" name="hardware-chip-outline"></ion-icon>
+        <ion-label>Quotes</ion-label>
+      </ion-item>
+      <ion-item button color="primary" href="https://4k-full-screen-video.flycricket.io/privacy.html">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-label>Privacy police</ion-label>
+      </ion-item>
+      <ion-item (click)="gs.rateApp()" button color="primary">
+        <ion-icon slot="start" name="star-outline"></ion-icon>
+        <ion-label>Rate Us</ion-label>
+      </ion-item>
+      <ion-item button color="primary">
+        <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
+        <ion-label>Feedback</ion-label>
+      </ion-item>
+      <ion-item (click)="gs.appShare()" button color="primary">
+        <ion-icon slot="start" name="share-social-outline"></ion-icon>
+        <ion-label>Share App</ion-label>
+      </ion-item>
+      <ion-item button color="primary">
+        <ion-icon slot="start" name="star-outline"></ion-icon>
+        <ion-label>More App</ion-label>
+      </ion-item>
+      <!-- </ion-list> -->
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

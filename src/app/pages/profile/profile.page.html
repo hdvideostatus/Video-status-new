@@ -1,0 +1,143 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="gs.languagePopup()">
+        <ion-icon slot="icon-only" color="tertiary" name="globe-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-button routerLink="/faverite">
+        <ion-icon slot="icon-only" color="danger" name="heart"></ion-icon>
+      </ion-button> -->
+      <ion-button routerLink="/download">
+        <ion-icon slot="icon-only" color="light" name="arrow-down-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-grid *ngIf="gs.userData && !gs.userData.user_id">
+    <ion-row class="centered">
+      <ion-col size="12" class="ion-text-center ion-padding-top">
+        <ion-button (click)="login()" type="submit" class="ion-padding-horizontal" color="secondary"
+          style="height: 50px;width: 170px;">
+          Login Now
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <section *ngIf="gs.userData && gs.userData.user_id" class="profile-sect">
+    <ion-row>
+      <ion-col size="12">
+        <ul>
+          <li>
+            <img *ngIf="gs.userData.user_profile != ''" [src]="gs.userData.user_profile" />
+            <img *ngIf="gs.userData.user_profile == ''" src="assets/avatar.png" />
+          </li>
+          <li>
+            <h5>{{gs.userData.user_name}}</h5>
+            <ion-button color="light" class="ion-text-capitalize edit-btn" expand="block" fill="outline"
+              (click)="editProfile()">
+              Edit Profile
+            </ion-button>
+          </li>
+        </ul>
+      </ion-col>
+
+      <ion-col size="12" style="display: flex;text-align: center;justify-content: center">
+        <ion-fab *ngIf="gs.userData.user_instagram" style="position: relative">
+          <ion-fab-button [href]="gs.userData.user_instagram" color="secondary" size="small">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+        <ion-fab *ngIf="gs.userData.user_telegram" style="position: relative">
+          <ion-fab-button [href]="gs.userData.user_telegram" color="secondary" size="small">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+        <ion-fab *ngIf="gs.userData.user_youtube" style="position: relative">
+          <ion-fab-button [href]="gs.userData.user_youtube" color="secondary" size="small">
+            <ion-icon name="send-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <ion-segment color="light" [(ngModel)]="profileFeed">
+          <ion-segment-button color="light" value="myvideo">
+            <ion-icon color="light" name="film-outline"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button color="light" value="faverite">
+            <ion-icon color="light" name="heart-outline"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <section class="feeds-sect" *ngIf="profileFeed == 'myvideo'">
+          <ion-row *ngIf="allMyVideos.videoData && allMyVideos.videoData.length">
+            <ng-container *ngFor="let item of allMyVideos.videoData;let inx = index">
+              <ion-col size="4" (click)="goVideoSlides(allMyVideos.videoData, inx)">
+                <ion-img [src]="item.video_thumb" style="height: 205px;border: 1px solid #535c6a;object-fit: cover;">
+                </ion-img>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+          <ion-row *ngIf="allMyVideos.videoData && !allMyVideos.videoData.length">
+            <ion-col size="12">
+              <div class="ion-text-center" style="margin-top: 60px;">
+                <ion-text color="light">
+                  No Videos!
+                </ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </section>
+
+
+        <section class="feeds-sect" *ngIf="profileFeed == 'faverite'">
+          <ion-row *ngIf="gs.myFavVideos.length">
+            <ion-col size="6" *ngFor="let vidRow of gs.myFavVideos;let inx = index">
+              <ion-card color="primary"
+                style="margin-bottom: 2px;border: 1px solid #adaab4;height: 300px;border-radius: 0;"
+                class="ion-no-margin ion-no-padding" (click)="goVideoSlides(gs.myFavVideos, inx)">
+                <img [src]="vidRow.video_thumb" style="height: 235px;width: 100%;object-fit: cover" />
+                <ion-row class="bottum_menu">
+                  <ion-col class="ion-align-items-center" size="12" style="display: flex;">
+                    <ion-fab>
+                      <ion-fab-button color="primary" size="small">
+                        <ion-icon name="share-social-outline"></ion-icon>
+                      </ion-fab-button>
+                    </ion-fab>
+                    <span style="margin-left: auto;">
+                      <ion-fab>
+                        <ion-fab-button (click)="unFavConfirm(vidRow.video_id);$event.stopPropagation()" fill="outline"
+                          color="primary" size="small">
+                          <ion-icon name="heart"></ion-icon>
+                        </ion-fab-button>
+                      </ion-fab>
+                    </span>
+                  </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <p *ngIf="!gs.myFavVideos.length" class="ion-text-center" style="margin-top: 100px;">
+            <ion-text color="light">
+              No Faverite Video
+            </ion-text>
+          </p>
+        </section>
+      </ion-col>
+    </ion-row>
+  </section>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

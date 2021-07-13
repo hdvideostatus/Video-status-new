@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Download</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-grid fixed>
+    <!-- <ion-row *ngIf="myImages.length">
+      <ion-col size="6" *ngFor="let vidRow of myImages">
+        <ion-card (click)="goVideoSlides()" class="ion-no-margin img_card">
+          <ion-img [src]="vidRow.video_thumb" alt="Image"></ion-img>
+          <div class="img_ovarlay">
+            <p>
+              <b>Hindi</b> - Love romentice
+            </p>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row> -->
+    <p *ngIf="!myImages.length" class="ion-text-center" style="margin-top: 100px;">
+      <ion-text color="light">
+        No Download Video
+      </ion-text>
+    </p>
+  </ion-grid>
+</ion-content>
