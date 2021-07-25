@@ -15,14 +15,12 @@
   </ion-toolbar>
   <ion-toolbar color="primary" *ngIf="allQuotCatList.length">
     <ion-segment (ionChange)="segmentChanged($event)" color="light" scrollable aria-selected="true"
-      value="allQuotCatList[0].category_id">
+      [value]="allQuotCatList[0].category_id">
       <ng-container *ngFor="let item of allQuotCatList">
         <ion-segment-button color="light" [value]="item.category_id">
-          <!-- <ion-icon color="light" name="hardware-chip-outline"></ion-icon> -->
           <span
             style="background: #1c142b;height: 60px;width: 60px;display: flex;align-items: center;justify-content: center;font-size: 27px;border-radius: 60px;">
             <img [src]="item.category_thumb" alt="Image" height="34px" width="34px">
-            <!-- <ion-icon src="assets/Attitude.svg"></ion-icon> -->
           </span>
           <ion-label color="light" style="font-size: 10px;margin-top: 2px;">{{item.category_name}}</ion-label>
         </ion-segment-button>
@@ -41,7 +39,7 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  <p *ngIf="!allQuotesList.length" class="ion-text-center" style="margin-top: 100px;">
+  <p *ngIf="!allQuotesList.length && !isSpinner" class="ion-text-center" style="margin-top: 100px;">
     <ion-text color="light">
       No Data
     </ion-text>

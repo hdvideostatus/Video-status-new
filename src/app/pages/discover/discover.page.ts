@@ -11,6 +11,7 @@ import { GlobalService } from 'src/app/services/global.service';
 export class DiscoverPage implements OnInit {
   allCategoryList: any = [];
   isAPIcall: boolean = true;
+  isSpinner: any = true;
   constructor(
     public gs: GlobalService,
     public api: ApiService,
@@ -23,6 +24,7 @@ export class DiscoverPage implements OnInit {
   }
 
   getCetegory() {
+    this.gs.presentLoading('Category loading...');
     let body = {
       language_id: String(this.gs.selectedLang),
       start: 0,
@@ -31,14 +33,18 @@ export class DiscoverPage implements OnInit {
       if (res['ResponseCode'] == 1) {
         this.allCategoryList = res['ResultData'];
         console.log('this.allCategoryList', this.allCategoryList);
-
       } else {
         this.gs.messageToast('Something went wrong');
       }
+      this.isSpinner = false;
+      this.gs.dissmisLoding();
     }, err => {
+      this.isSpinner = false;
+      this.gs.dissmisLoding();
       this.gs.messageToast('Something went wrong');
     })
   }
+
   getVideoListByCategory(category_id) {
     let body = {
       category_id: category_id,
@@ -51,7 +57,9 @@ export class DiscoverPage implements OnInit {
       } else {
         this.gs.messageToast('Something went wrong');
       }
+      this.isSpinner = false;
     }, err => {
+      this.isSpinner = false;
       this.gs.messageToast('Something went wrong');
     })
   }

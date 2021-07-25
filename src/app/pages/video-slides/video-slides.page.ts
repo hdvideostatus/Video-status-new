@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, IonContent, IonSlides, Platform } from '@ionic/angular';
+import { AlertController, IonContent, IonSlides, ModalController, Platform } from '@ionic/angular';
 import { GlobalService } from '../../services/global.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ApiService } from 'src/app/services/api.service';
@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 // import { AdmobfreeService } from 'src/app/services/admobfree.service';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { OtherProfilePage } from '../other-profile/other-profile.page';
 
 @Component({
   selector: 'app-video-slides',
@@ -44,13 +45,14 @@ export class VideoSlidesPage implements OnInit {
     public alertCtrl: AlertController,
     public fileTransfer: FileTransfer,
     public file: File,
-    // public admobS: AdmobfreeService,
     public gs: GlobalService,
     private route: ActivatedRoute,
     public socialSharing: SocialSharing,
     public api: ApiService,
-    // public adMobFree: AdMobFree,
     private platform: Platform,
+    public modalController: ModalController
+    // public admobS: AdmobfreeService,
+    // public adMobFree: AdMobFree,
   ) {
     this.platform.ready().then(async () => {
       let getCatBioObj = await JSON.parse(this.route.snapshot.queryParamMap.get('item'));
@@ -58,7 +60,7 @@ export class VideoSlidesPage implements OnInit {
       this.getAllVideos = getCatBioObj.videoData;
       this.endPoint = getCatBioObj.endPoint;
       this.category = getCatBioObj.category;
-      console.log("getCatBioObj>>>>>>>>>>", getCatBioObj);
+      console.log("getAllVideos>>>>>>>>>>", this.getAllVideos);
       this.shownVideos = 0;
       this.previousInd = 0;
       this.spinner = false;
@@ -146,7 +148,7 @@ export class VideoSlidesPage implements OnInit {
   slideNextt() {
     console.log("index");
     this.slides.getActiveIndex().then((index) => {
-      if (this.isAPIcall && (index == this.getAllVideos.length - 2)) {
+      if (this.isAPIcall && (index == this.getAllVideos.length - 3)) {
         this.loadData();
       }
       this.gs.checkFavVideo(this.getAllVideos[index].video_id);
@@ -239,7 +241,7 @@ export class VideoSlidesPage implements OnInit {
 
   viaVideoShare(vidRow) {
     this.isVidShare = true;
-    this.socialSharing.share('👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻', '', vidRow.video_url, 'https://play.google.com/store/apps/details?id=com.videostatus.fullscreenvideostatus').then((res) => {
+    this.socialSharing.share('👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻', '', vidRow.video_url, 'https://play.google.com/store/apps/details?id=com.vidstatus.hdvideofullsrceenvideo').then((res) => {
       this.isVidShare = false;
       vidRow.video_share = Number(vidRow.video_share) + 1;
       this.gs.increateCount(vidRow.video_id, "2");
@@ -248,10 +250,27 @@ export class VideoSlidesPage implements OnInit {
     });
   }
 
-  // favriteVideo(vidRow) {
-  //   console.log("vidRow", vidRow);
-
-  //   vidRow.video_share = Number(vidRow.video_share) + 1;
-  //   this.gs.increateCount(vidRow.video_id, '3')
-  // }
+  async viewProfile(user_id) {
+    this.slides.getActiveIndex().then((index) => {
+      let newVideoData = <HTMLVideoElement>(
+        document.getElementById("isNewVideo" + index)
+      );
+      if (newVideoData) {
+        newVideoData.pause();
+      }
+    })
+    this.router.navigate(['/other-profile'], {
+      queryParams: {
+        user_id: user_id
+      }
+    });
+    // const modal = await this.modalController.create({
+    //   component: OtherProfilePage,
+    //   cssClass: 'my-custom-class',
+    //   componentProps: {
+    //     user_id: user_id
+    //   }
+    // });
+    // return await modal.present();
+  }
 }

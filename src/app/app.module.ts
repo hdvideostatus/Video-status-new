@@ -16,7 +16,8 @@ import { File } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-// import { HTTP } from '@ionic-native/http/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { VideoEditor } from '@ionic-native/video-editor/ngx';
 // import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 
 
@@ -36,11 +37,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     Market,
     SocialSharing,
     UniqueDeviceID,
+    AndroidPermissions,
+    VideoEditor,
     // Network,
     Camera,
     File,
     FileTransfer,
-    // HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -7,6 +7,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { ApiService } from './services/api.service';
 import { Router } from '@angular/router';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 // import { Network } from '@ionic-native/network/ngx';
 // import { HTTP } from '@ionic-native/http/ngx';
 // import { FCM } from '@ionic-native/fcm/ngx';
@@ -25,6 +26,7 @@ export class AppComponent {
     private platform: Platform,
     private _location: Location,
     private uniqueDeviceID: UniqueDeviceID,
+    private androidPermissions: AndroidPermissions,
     // public network: Network,
     public appVersion: AppVersion,
     // private http: HTTP,
@@ -36,7 +38,10 @@ export class AppComponent {
     // private fcm: FCM,
     public api: ApiService
   ) {
+
+    // this.getPermission();
     this.initializeApp();
+
   }
 
   async initializeApp() {
@@ -60,20 +65,6 @@ export class AppComponent {
       // }
       // this.initialFCMNotification();
       // this.listenConnection();
-      this.createUserProfile();
-      this.getAppDetail();
-      this.gs.getLanguageList();
-      // this.http.get('http://4kfullscreenvideostatus.com/appv1/videoapi/getLanguageList', '', '')
-      //   .then(data => {
-      //     console.log("datadatadatadata" + JSON.stringify(data));
-      //   })
-      //   .catch(error => {
-
-      //     console.log("error.status>>>" + JSON.stringify(error.status));
-      //     console.log("error.error>>>" + JSON.stringify(error.error)); // error message as string
-      //     console.log("error.headers>>>" + JSON.stringify(error.headers));
-
-      //   });
       this.file.createDir(this.file.externalRootDirectory, '4k Video Status', true)
         .then((result) => {
           this.file.createDir(this.file.externalRootDirectory, '4k Video Status/Videos', true).then((result) => {
@@ -84,6 +75,33 @@ export class AppComponent {
         })
         .catch((err) => { });
     })
+    this.gs.getLanguageList();
+    this.getAppDetail();
+    this.createUserProfile();
+  }
+
+  getPermission() {
+    console.log(">>>>>>>>>>>>>>>>");
+
+    this.androidPermissions.checkPermission(
+      this.androidPermissions.PERMISSION.GET_ACCOUNTS // PERMISSION.ACCESS_COARSE_LOCATION
+    ).then(res => {
+      console.log("READ_PRIVILEGED_PHONE_STATE" + JSON.stringify(res));
+      if (!res.hasPermission) {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.GET_ACCOUNTS).then(res => {
+          console.log('Persmission Granted Please Restart App!');
+        }).catch(error => {
+          console.log("Error!Error!Error!" + error);
+        });
+      } else {
+      }
+    }, error => {
+      // this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.GET_ACCOUNTS)
+      console.log("Noooooooooo>>>>>>>>>>>>>" + error);
+    }).catch(error => {
+      // this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.GET_ACCOUNTS)
+      console.log("catchError>>>>>>>>>>>>>" + error);
+    });
   }
 
   initialFCMNotification() {

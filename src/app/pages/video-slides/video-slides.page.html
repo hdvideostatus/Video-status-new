@@ -3,13 +3,13 @@
     (ionSlideReachEnd)="loadMoreData()" (ionSlideNextEnd)="slideNextt()" (ionSlidePrevEnd)="slidePrevv()">
     <ion-slide style="overflow: hidden" *ngFor="let vidRow of getAllVideos; let index=index">
       <div class="vidSection">
-        <video id="isNewVideo{{index}}" controls muted controlsList="nodownload" loop disablePictureInPicture
+        <video id="isNewVideo{{index}}" muted controls controlsList="nodownload" loop disablePictureInPicture
           class="videoPlayer" width="100%" [poster]="vidRow['video_thumb']">
           <source src="{{vidRow['video_url']}}?avoidCache={{index}}" type="video/mp4" />
         </video>
       </div>
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 70px;">
-        <ion-fab-button color="secondary" size="small" class="fab_btn">
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 70px;right: 0;">
+        <ion-fab-button (click)="viewProfile(vidRow['user_id'])" color="secondary" size="small" class="fab_btn">
           <ion-icon name="person-circle-outline" class="blkColor" style="font-size: 42px"></ion-icon>
         </ion-fab-button>
 

@@ -183,7 +183,7 @@ export class QuotesSliderPage implements OnInit {
 
   viaVideoShare(quotRow) {
     this.isVidShare = true;
-    this.socialSharing.share('👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻', '', quotRow.quotes_thumb, 'https://play.google.com/store/apps/details?id=com.videostatus.fullscreenvideostatus').then((res) => {
+    this.socialSharing.share('👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻', '', quotRow.quotes_thumb, 'https://play.google.com/store/apps/details?id=com.vidstatus.hdvideofullsrceenvideo').then((res) => {
       this.isVidShare = false;
       quotRow.quotes_share = Number(quotRow.quotes_share) + 1;
       this.gs.quotesIncreateCount(quotRow.quotes_id, "2");

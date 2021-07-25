@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>Status</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="gs.quotes()">
+        <ion-icon slot="icon-only" color="tertiary" src="assets/icon/Quotes.svg"></ion-icon>
+      </ion-button>
       <ion-button (click)="gs.languagePopup()">
         <ion-icon slot="icon-only" color="tertiary" name="globe-outline"></ion-icon>
       </ion-button>
@@ -16,6 +19,45 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <!-- <ion-toolbar color="primary" *ngIf="gs.homeVideos.length">
+    <ion-segment color="light" scrollable style="margin-bottom: 15px;">
+      <ion-segment-button color="light" style="width: 68px;">
+        <span style="    background: #1c142b;
+        height: 60px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 27px;
+        border-radius: 60px;">
+          <img src="assets/icon/status-saver.png" alt="Image" style="    object-fit: cover;
+          border-radius: 50px;
+          height: 60px;
+          width: 60px;
+          border: 3px solid white;
+          background: white;">
+        </span>
+      </ion-segment-button>
+      <ng-container *ngFor="let item of gs.homeVideos">
+        <ion-segment-button color="light" style="width: 68px;">
+          <span style="    background: #1c142b;
+          height: 60px;
+          width: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 27px;
+          border-radius: 60px;">
+            <img [src]="item.video_thumb" alt="Image" style="    object-fit: cover;
+            border-radius: 50px;
+            height: 60px;
+            width: 60px;
+            border: 3px solid white;">
+          </span>
+        </ion-segment-button>
+      </ng-container>
+    </ion-segment>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content color="primary">
@@ -33,7 +75,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-row *ngIf="!gs.homeVideos.length">
+  <ion-row *ngIf="!gs.homeVideos.length && !gs.isSpinner">
     <ion-col size="12">
       <div class="ion-text-center" style="margin-top: 60px;">
         <ion-text color="light">

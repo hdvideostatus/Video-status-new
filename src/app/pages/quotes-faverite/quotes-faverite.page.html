@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Faverite Quotes</ion-title>
+    <ion-title>Favorite Quotes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="primary">
   <ion-row *ngIf="gs.myFavQuotes.length">
     <ion-col size="6" *ngFor="let quotRow of gs.myFavQuotes;let inx = index">
-      <ion-card color="primary" style="margin-bottom: 2px;border: 1px solid #adaab4;height: 300px;border-radius: 0;"
+      <ion-card color="primary" style="margin-bottom: 2px;border: 2px solid white;border-radius: 10px;height: 300px;"
         class="ion-no-margin ion-no-padding" (click)="goQuotesSlides(gs.myFavQuotes, inx)">
         <img [src]="quotRow.quotes_thumb" style="height: 235px;width: 100%;object-fit: cover" />
         <ion-row class="bottum_menu">
@@ -35,7 +35,7 @@
   </ion-row>
   <p *ngIf="!gs.myFavQuotes.length" class="ion-text-center" style="margin-top: 100px;">
     <ion-text color="light">
-      No Faverite Quotes
+      No Favorite Quotes
     </ion-text>
   </p>
 </ion-content>

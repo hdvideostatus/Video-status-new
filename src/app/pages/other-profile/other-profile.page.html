@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Creator Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <section *ngIf="allMyVideos && allMyVideos.userProfile" class="profile-sect">
+    <ion-row>
+      <ion-col size="12">
+        <ul>
+          <li>
+            <img *ngIf="allMyVideos.userProfile.user_profile != ''" [src]="allMyVideos.userProfile.user_profile" />
+            <img *ngIf="allMyVideos.userProfile.user_profile == ''" src="assets/avatar.png" />
+          </li>
+          <li>
+            <h5>{{allMyVideos.userProfile.user_name}}</h5>
+          </li>
+        </ul>
+      </ion-col>
+
+      <ion-col size="12" style="display: flex;text-align: center;justify-content: center">
+        <ion-fab *ngIf="allMyVideos.userProfile.user_instagram" style="position: relative">
+          <ion-fab-button [href]="allMyVideos.userProfile.user_instagram" color="secondary" size="small">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+        <ion-fab *ngIf="allMyVideos.userProfile.user_telegram" style="position: relative">
+          <ion-fab-button [href]="allMyVideos.userProfile.user_telegram" color="secondary" size="small">
+            <ion-icon name="send-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+        <ion-fab *ngIf="allMyVideos.userProfile.user_youtube" style="position: relative">
+          <ion-fab-button [href]="allMyVideos.userProfile.user_youtube" color="secondary" size="small">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <ion-list-header style="border-left: 4px solid #a44cf6;margin: 3px;">
+          <ion-label color="light">Videos</ion-label>
+        </ion-list-header>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <section class="feeds-sect" *ngIf="profileFeed == 'myvideo'">
+          <ion-row *ngIf="allMyVideos.videoData && allMyVideos.videoData.length">
+            <ng-container *ngFor="let item of allMyVideos.videoData;let inx = index">
+              <ion-col size="4" (click)="goVideoSlides(allMyVideos.videoData, inx)">
+                <ion-img [src]="item.video_thumb" style="height: 205px;border: 1px solid #535c6a;object-fit: cover;">
+                </ion-img>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+          <ion-row *ngIf="allMyVideos.videoData && !allMyVideos.videoData.length">
+            <ion-col size="12">
+              <div class="ion-text-center" style="margin-top: 60px;">
+                <ion-text color="light">
+                  No Videos!
+                </ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </section>
+      </ion-col>
+    </ion-row>
+  </section>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

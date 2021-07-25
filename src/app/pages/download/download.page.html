@@ -5,26 +5,82 @@
     </ion-buttons>
     <ion-title>Download</ion-title>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-segment color="light" [(ngModel)]="downloadTab" (ionChange)="segmentChanged($event)">
+      <ion-segment-button color="light" value="videos">
+        <ion-label color="light">Videos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button color="light" value="quotes">
+        <ion-label color="light">Quotes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content color="primary">
   <ion-grid fixed>
-    <!-- <ion-row *ngIf="myImages.length">
-      <ion-col size="6" *ngFor="let vidRow of myImages">
-        <ion-card (click)="goVideoSlides()" class="ion-no-margin img_card">
-          <ion-img [src]="vidRow.video_thumb" alt="Image"></ion-img>
-          <div class="img_ovarlay">
-            <p>
-              <b>Hindi</b> - Love romentice
-            </p>
-          </div>
-        </ion-card>
-      </ion-col>
-    </ion-row> -->
-    <p *ngIf="!myImages.length" class="ion-text-center" style="margin-top: 100px;">
-      <ion-text color="light">
-        No Download Video
-      </ion-text>
-    </p>
+    <!-- For videos -->
+    <section class="feeds-sect" *ngIf="downloadTab == 'videos'">
+      <ion-row *ngIf="gs.myVideosDownload.length">
+        <ion-col size="6" *ngFor="let vidRow of gs.myVideosDownload; let index = index">
+          <!-- <ion-card (click)="goVideoSlides()" class="ion-no-margin img_card">
+            <ion-img [src]="vidRow.thumb" alt="Image"></ion-img> -->
+          <ion-card color="primary"
+            style="margin-bottom: 2px;border: 2px solid white;border-radius: 10px;height: 300px;"
+            class="ion-no-margin ion-no-padding">
+            <ion-img [src]="vidRow.thumb" style="height: 235px;width: 100%;object-fit: cover"></ion-img>
+            <div class="img_ovarlay">
+            </div>
+            <ion-row class="bottum_menu">
+              <ion-col class="ion-align-items-center" size="12" style="display: flex;">
+                <span style="margin-left: auto;">
+                  <ion-fab>
+                    <ion-fab-button (click)="delete('video',index);$event.stopPropagation()" fill="outline"
+                      color="primary" size="small">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-fab-button>
+                  </ion-fab>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <p *ngIf="!gs.myVideosDownload.length && !isSpinner" class="ion-text-center" style="margin-top: 100px;">
+        <ion-text color="light">
+          No Download Videos
+        </ion-text>
+      </p>
+    </section>
+
+    <!-- For Quotes -->
+    <section class="feeds-sect" *ngIf="downloadTab == 'quotes'">
+      <ion-row *ngIf="gs.myQuotesDownload.length">
+        <ion-col size="6" *ngFor="let item of gs.myQuotesDownload; let index = index">
+          <ion-card color="primary"
+            style="margin-bottom: 2px;border: 2px solid white;border-radius: 10px;height: 300px;"
+            class="ion-no-margin ion-no-padding" (click)="goQuotesSlides(index)">
+            <ion-img src="{{item['image']}}" style="height: 235px;width: 100%;object-fit: cover"></ion-img>
+            <ion-row class="bottum_menu">
+              <ion-col class="ion-align-items-center" size="12" style="display: flex;">
+                <span style="margin-left: auto;">
+                  <ion-fab>
+                    <ion-fab-button (click)="delete('image',index);$event.stopPropagation()" fill="outline"
+                      color="primary" size="small">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-fab-button>
+                  </ion-fab>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <p *ngIf="!gs.myQuotesDownload.length" class="ion-text-center" style="margin-top: 100px;">
+        <ion-text color="light">
+          No Download Quotes
+        </ion-text>
+      </p>
+    </section>
   </ion-grid>
 </ion-content>

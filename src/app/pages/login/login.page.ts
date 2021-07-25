@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
     public gs: GlobalService,
     public api: ApiService,
     private navCtrl: NavController,
-    // private uniqueDeviceID: UniqueDeviceID
+    private uniqueDeviceID: UniqueDeviceID
   ) {
     console.log("gs.userData>>>", gs.userData);
 
@@ -35,15 +35,15 @@ export class LoginPage implements OnInit {
       user_youtube: ['']
     })
     if (this.gs.userData && this.gs.userData.user_id) {
-      this.pageLabel = 'Edit Profile';
+      this.pageLabel = 'Update';
       this.setFormData(this.gs.userData);
     }
   }
 
   ngOnInit() {
-    // this.uniqueDeviceID.get().then((uuid: any) => {
-    //   this.deviceID = uuid;
-    // })
+    this.uniqueDeviceID.get().then((uuid: any) => {
+      this.deviceID = uuid;
+    })
   }
 
   // My divece kye : 03993340-1665-a36f-8692-160499703718
@@ -60,10 +60,10 @@ export class LoginPage implements OnInit {
       formData.append('user_instagram', this.loginForm.value.user_instagram);
       formData.append('user_telegram', this.loginForm.value.user_telegram);
       formData.append('user_youtube', this.loginForm.value.user_youtube);
-      this.api.post('updateUserProfile', formData).then((res) => {
+      this.api.post('updateUserProfile', formData).then(async (res) => {
         console.log("updateUserProfile>>>>", res);
         if (res['ResponseCode'] == 1) {
-          this.gs.userData = res['ResultData'];
+          this.gs.userData = await res['ResultData'];
           setTimeout(() => {
             this.gs.dissmisLoding();
             this.gs.messageToast(res['ResponseMsg']);

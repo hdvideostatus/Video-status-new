@@ -62,7 +62,7 @@ export class UploadPage implements OnInit {
         this.api.post('uploadVideo', formData).then(async (res) => {
           console.log("uploadVideo>>>>", res);
           if (res['ResponseCode'] == 1) {
-            this.gs.userData = res['ResultData'];
+            // this.gs.userData = res['ResultData'];
             await this.gs.messageToast(res['ResponseMsg']);
             this.navCtrl.pop();
             this.gs.dissmisLoding();

@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>Profile</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="gs.quotes()">
+        <ion-icon slot="icon-only" color="tertiary" src="assets/icon/Quotes.svg"></ion-icon>
+      </ion-button>
       <ion-button (click)="gs.languagePopup()">
         <ion-icon slot="icon-only" color="tertiary" name="globe-outline"></ion-icon>
       </ion-button>
@@ -19,10 +22,40 @@
 </ion-header>
 
 <ion-content color="primary">
-  <ion-grid *ngIf="gs.userData && !gs.userData.user_id">
-    <ion-row class="centered">
+  <ion-grid class="profile-sect" *ngIf="gs.userData == null || gs.userData && !gs.userData.user_id">
+    <ion-row style="opacity: 0.4;pointer-events: none;">
+      <ion-col size="12">
+        <ul>
+          <li>
+            <img src="assets/avatar.png" />
+          </li>
+          <li>
+            <h5 style="height: 9px;width: 120px;background: #cfcfcf;"></h5>
+            <h5 style="height: 9px;width: 120px;background: #cfcfcf;"></h5>
+          </li>
+        </ul>
+      </ion-col>
+      <ion-col size="12">
+        <ion-segment color="light" [(ngModel)]="profileFeed">
+          <ion-segment-button color="light" value="myvideo">
+            <ion-icon color="light" name="film-outline"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button color="light" value="faverite">
+            <ion-icon color="light" name="heart-outline"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+      <ion-col size="12">
+        <div class="ion-text-center" style="margin-top: 60px;margin-bottom: 30px;">
+          <ion-text color="light">
+            No Videos!
+          </ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col size="12" class="ion-text-center ion-padding-top">
-        <ion-button (click)="login()" type="submit" class="ion-padding-horizontal" color="secondary"
+        <ion-button (click)="login()" type="submit" shape="round" class="ion-padding-horizontal" color="secondary"
           style="height: 50px;width: 170px;">
           Login Now
         </ion-button>
@@ -47,6 +80,7 @@
         </ul>
       </ion-col>
 
+
       <ion-col size="12" style="display: flex;text-align: center;justify-content: center">
         <ion-fab *ngIf="gs.userData.user_instagram" style="position: relative">
           <ion-fab-button [href]="gs.userData.user_instagram" color="secondary" size="small">
@@ -55,12 +89,12 @@
         </ion-fab>
         <ion-fab *ngIf="gs.userData.user_telegram" style="position: relative">
           <ion-fab-button [href]="gs.userData.user_telegram" color="secondary" size="small">
-            <ion-icon name="logo-youtube"></ion-icon>
+            <ion-icon name="send-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>
         <ion-fab *ngIf="gs.userData.user_youtube" style="position: relative">
           <ion-fab-button [href]="gs.userData.user_youtube" color="secondary" size="small">
-            <ion-icon name="send-outline"></ion-icon>
+            <ion-icon name="logo-youtube"></ion-icon>
           </ion-fab-button>
         </ion-fab>
       </ion-col>
@@ -104,13 +138,13 @@
           <ion-row *ngIf="gs.myFavVideos.length">
             <ion-col size="6" *ngFor="let vidRow of gs.myFavVideos;let inx = index">
               <ion-card color="primary"
-                style="margin-bottom: 2px;border: 1px solid #adaab4;height: 300px;border-radius: 0;"
+                style="margin-bottom: 2px;border: 2px solid white;border-radius: 10px;height: 300px;"
                 class="ion-no-margin ion-no-padding" (click)="goVideoSlides(gs.myFavVideos, inx)">
                 <img [src]="vidRow.video_thumb" style="height: 235px;width: 100%;object-fit: cover" />
                 <ion-row class="bottum_menu">
                   <ion-col class="ion-align-items-center" size="12" style="display: flex;">
                     <ion-fab>
-                      <ion-fab-button color="primary" size="small">
+                      <ion-fab-button (click)="viaVideoShare(vidRow)" color="primary" size="small">
                         <ion-icon name="share-social-outline"></ion-icon>
                       </ion-fab-button>
                     </ion-fab>

@@ -27,7 +27,7 @@ export class FaveritePage implements OnInit {
       '👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻',
       '',
       vidRow.video_url,
-      'https://play.google.com/store/apps/details?id=com.videostatus.fullscreenvideostatus'
+      'https://play.google.com/store/apps/details?id=com.vidstatus.hdvideofullsrceenvideo'
     ).then((res) => {
       this.isVidShare = false;
       vidRow.video_share = Number(vidRow.video_share) + 1;

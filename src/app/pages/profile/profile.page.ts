@@ -54,7 +54,7 @@ export class ProfilePage implements OnInit {
 
   viaVideoShare(vidRow) {
     this.isVidShare = true;
-    this.socialSharing.share('👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻', '', vidRow.video_url, 'https://play.google.com/store/apps/details?id=com.videostatus.fullscreenvideostatus').then((res) => {
+    this.socialSharing.share('👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻', '', vidRow.video_url, 'https://play.google.com/store/apps/details?id=com.vidstatus.hdvideofullsrceenvideo').then((res) => {
       this.isVidShare = false;
       vidRow.video_share = Number(vidRow.video_share) + 1;
       this.gs.increateCount(vidRow.video_id, "2");
@@ -64,10 +64,10 @@ export class ProfilePage implements OnInit {
   }
 
   loadData(infiniteScroll) {
-    if (this.isAPIcall) {
+    if (this.isAPIcall && this.profileFeed == 'myvideo') {
       let body = {
         user_id: this.gs.userData.user_id,
-        start: this.dataStart
+        start: this.allMyVideos.videoData.length
       }
       this.api.post('getMyVideos', body).then((res) => {
         console.log("res>>>>", res);
@@ -76,7 +76,6 @@ export class ProfilePage implements OnInit {
             for (let i = 0; i < res['ResultData']['videoData'].length; i++) {
               this.allMyVideos.videoData.push(res['ResultData']['videoData'][i]);
             }
-            this.dataStart = this.allMyVideos.videoData.length
           } else {
             this.isAPIcall = false;
           }

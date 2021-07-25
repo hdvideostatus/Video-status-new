@@ -1,0 +1,67 @@
+.pro-header{
+    border-bottom: 1px solid #cecece;
+    .main-title{
+        font-weight: bold;
+        font-weight: bold;
+        color: black;
+    }
+}
+.profile-sect{
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        justify-content: space-evenly;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        li{
+            h5{
+                font-weight: bold;
+            }
+            p{
+                margin: 6px 0;
+            }
+        }
+        img{
+            height: 100px;
+            border-radius: 100px;
+            width: 100px;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+            padding: 2px;
+        }
+    }
+    .bio-sect{
+        p{
+            margin: 1px;
+        }
+    }
+    .edit-btn{
+        --border-width: 1px;
+        font-weight: bold;
+    }
+}
+.feeds-sect{
+    ion-col{
+        padding: 2px;
+    }
+}
+.edit-btn{
+    --border-width: 1px;
+    font-weight: bold;
+}
+.bottum_menu{
+    ion-fab{
+        position: relative
+    }
+    ion-fab-button{
+        display: inline-flex;
+    }
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

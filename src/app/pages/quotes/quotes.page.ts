@@ -18,6 +18,8 @@ export class QuotesPage implements OnInit {
   selectedCategory: any;
   isFirstTime: boolean = false;
   isAPIcall: boolean = true;
+  isSpinner: boolean = true;
+  checkedQuote: any;
   constructor(
     public router: Router,
     public gs: GlobalService,
@@ -38,6 +40,7 @@ export class QuotesPage implements OnInit {
   }
 
   getLanguageList() {
+    this.gs.presentLoading('Quotes loading...');
     this.api.Qpost('getLanguageList', '').then(async (res) => {
       if (res['ResponseCode'] == 1) {
         this.allQuotesLanguage = res['ResultData'];
@@ -64,10 +67,13 @@ export class QuotesPage implements OnInit {
         });
       } else {
         this.gs.messageToast('Something went wrong');
+        this.isSpinner = false;
+        this.gs.dissmisLoding();
       }
     }, err => {
       console.log("errgetLanguageList>>>>>>>>" + JSON.stringify(err));
-
+      this.isSpinner = false;
+      this.gs.dissmisLoding();
       this.gs.messageToast('Something went wrong');
     })
   }
@@ -80,15 +86,19 @@ export class QuotesPage implements OnInit {
     this.api.Qpost('getCategoryList', body).then((res) => {
       if (res['ResponseCode'] == 1) {
         this.allQuotCatList = res['ResultData'];
-        console.log("body>>>>", this.allQuotCatList);
         if (res['ResultData'] && res['ResultData'].length) {
           this.selectedCategory = this.allQuotCatList[0].category_id;
-          this.getAllQuotesList(this.allQuotCatList[0].category_id)
+          this.checkedQuote = this.allQuotCatList[0].category_id;
+          this.getAllQuotesList(this.allQuotCatList[0].category_id);
         }
       } else {
         this.gs.messageToast('Something went wrong');
+        this.isSpinner = false;
+        this.gs.dissmisLoding();
       }
     }, err => {
+      this.isSpinner = false;
+      this.gs.dissmisLoding();
       this.gs.messageToast('Something went wrong');
     })
   }
@@ -103,11 +113,17 @@ export class QuotesPage implements OnInit {
       console.log("allQuotesList>>>>", res);
       if (res['ResponseCode'] == 1) {
         this.allQuotesList = res['ResultData'];
+        this.isSpinner = false;
+        this.gs.dissmisLoding();
       } else {
         this.gs.messageToast('Something went wrong');
+        this.isSpinner = false;
+        this.gs.dissmisLoding();
       }
     }, err => {
       this.gs.messageToast('Something went wrong');
+      this.isSpinner = false;
+      this.gs.dissmisLoding();
     })
   }
 

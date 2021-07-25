@@ -40,22 +40,35 @@ const routes: Routes = [
   },
   {
     path: 'quotes',
-    loadChildren: () => import('./pages/quotes/quotes.module').then( m => m.QuotesPageModule)
+    loadChildren: () => import('./pages/quotes/quotes.module').then(m => m.QuotesPageModule)
   },
   {
     path: 'privacy-police',
-    loadChildren: () => import('./pages/privacy-police/privacy-police.module').then( m => m.PrivacyPolicePageModule)
+    loadChildren: () => import('./pages/privacy-police/privacy-police.module').then(m => m.PrivacyPolicePageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },  {
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+  },
+  {
     path: 'quotes-slider',
-    loadChildren: () => import('./pages/quotes-slider/quotes-slider.module').then( m => m.QuotesSliderPageModule)
+    loadChildren: () => import('./pages/quotes-slider/quotes-slider.module').then(m => m.QuotesSliderPageModule)
   },
   {
     path: 'quotes-faverite',
-    loadChildren: () => import('./pages/quotes-faverite/quotes-faverite.module').then( m => m.QuotesFaveritePageModule)
+    loadChildren: () => import('./pages/quotes-faverite/quotes-faverite.module').then(m => m.QuotesFaveritePageModule)
+  },
+  {
+    path: 'other-profile',
+    loadChildren: () => import('./pages/other-profile/other-profile.module').then(m => m.OtherProfilePageModule)
+  },
+  {
+    path: 'view-video',
+    loadChildren: () => import('./pages/view-video/view-video.module').then(m => m.ViewVideoPageModule)
+  },
+  {
+    path: 'view-quotes',
+    loadChildren: () => import('./pages/view-quotes/view-quotes.module').then(m => m.ViewQuotesPageModule)
   }
 
 

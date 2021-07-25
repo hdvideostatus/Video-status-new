@@ -27,7 +27,7 @@ export class QuotesFaveritePage implements OnInit {
       '👌🏻 10,000+ 4k Full Screen Video Status  (Free)Download Now 👇🏻👇🏻👇🏻👇🏻👇🏻',
       '',
       quotRow.quotes_thumb,
-      'https://play.google.com/store/apps/details?id=com.videostatus.fullscreenvideostatus'
+      'https://play.google.com/store/apps/details?id=com.vidstatus.hdvideofullsrceenvideo'
     ).then((res) => {
       this.isVidShare = false;
       quotRow.quotes_share = Number(quotRow.quotes_share) + 1;

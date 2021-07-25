@@ -1,34 +1,32 @@
 <ion-app>
   <ion-menu side="start" menuId="first" contentId="main">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Start Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
     <ion-content color="primary">
-      <!-- <ion-list color="primary"> -->
+      <div class="ion-text-center ion-padding-top">
+        <img src="assets/icon/side-bar-logo.png" alt="" width="150px" style="padding-top: 12px;" />
+      </div>
+      <img class="ion-margin-top" src="assets/icon/side-bar-boder.png" alt="" style="margin-left: -20px;" />
       <ion-item button color="primary" (click)="quotes()">
-        <ion-icon slot="start" name="hardware-chip-outline"></ion-icon>
+        <img slot="start" src="assets/icon/Quotes.svg" width="28px" alt="" />
         <ion-label>Quotes</ion-label>
       </ion-item>
       <ion-item button color="primary" href="https://4k-full-screen-video.flycricket.io/privacy.html">
-        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <img slot="start" src="assets/icon/Privacy-Policy.svg" width="28px" alt="" />
         <ion-label>Privacy police</ion-label>
       </ion-item>
-      <ion-item (click)="gs.rateApp()" button color="primary">
-        <ion-icon slot="start" name="star-outline"></ion-icon>
-        <ion-label>Rate Us</ion-label>
-      </ion-item>
-      <ion-item button color="primary">
-        <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
+      <ion-item button color="primary" href="mailto:4kstatushdvideostatus@gmail.com">
+        <img slot="start" src="assets/icon/Feedback.svg" width="28px" alt="" />
         <ion-label>Feedback</ion-label>
       </ion-item>
+      <ion-item (click)="gs.rateApp()" button color="primary">
+        <img slot="start" src="assets/icon/Rating.svg" width="28px" alt="" />
+        <ion-label>Rate Us</ion-label>
+      </ion-item>
       <ion-item (click)="gs.appShare()" button color="primary">
-        <ion-icon slot="start" name="share-social-outline"></ion-icon>
+        <img slot="start" src="assets/icon/Share-App.svg" width="28px" alt="" />
         <ion-label>Share App</ion-label>
       </ion-item>
-      <ion-item button color="primary">
-        <ion-icon slot="start" name="star-outline"></ion-icon>
+      <ion-item button color="primary" (click)="gs.appShare()">
+        <img slot="start" src="assets/icon/More-Apps.svg" width="28px" alt="" />
         <ion-label>More App</ion-label>
       </ion-item>
       <!-- </ion-list> -->

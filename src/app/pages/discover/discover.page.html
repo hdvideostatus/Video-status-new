@@ -6,6 +6,9 @@
     <ion-title>Category</ion-title>
     <!-- Discover -->
     <ion-buttons slot="end">
+      <ion-button (click)="gs.quotes()">
+        <ion-icon slot="icon-only" color="tertiary" src="assets/icon/Quotes.svg"></ion-icon>
+      </ion-button>
       <!-- <ion-button (click)="gs.languagePopup()">
         <ion-icon slot="icon-only" color="tertiary" name="globe-outline"></ion-icon>
       </ion-button> -->
@@ -21,7 +24,7 @@
 
 <ion-content color="primary">
   <ng-container *ngFor="let item of allCategoryList">
-    <ion-list-header style="border-left: 4px solid white;margin: 3px;">
+    <ion-list-header style="border-left: 4px solid #a44cf6;margin: 3px;">
       <ion-label color="light">{{item.category_name}}</ion-label>
       <ion-button color="light" (click)="getVideoListByCategory(item.category_id)">See All</ion-button>
     </ion-list-header>
@@ -31,6 +34,15 @@
           style="width: 120px;margin: 2px;object-fit: cover;border: 1px solid #717171;">
       </ng-container>
     </div>
+  </ng-container>
+  <ng-container *ngFor="let item of allCategoryList">
+    <ng-container *ngIf="!allCategoryList.length && !isSpinner">
+      <ion-col size="12">
+        <p class="ion-text-center">
+          No Videos!
+        </p>
+      </ion-col>
+    </ng-container>
   </ng-container>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content>

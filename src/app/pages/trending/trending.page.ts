@@ -11,6 +11,7 @@ import { GlobalService } from 'src/app/services/global.service';
 export class TrendingPage implements OnInit {
   allTrendingVideos: any = [];
   isAPIcall: any = true;
+  isSpinner: any = true;
   constructor(
     public gs: GlobalService,
     public api: ApiService,
@@ -23,6 +24,7 @@ export class TrendingPage implements OnInit {
   }
 
   getTrendingVideos() {
+    this.gs.presentLoading('Videos loading...');
     let body = {
       language_id: String(this.gs.selectedLang),
       start: this.allTrendingVideos.length,
@@ -35,7 +37,11 @@ export class TrendingPage implements OnInit {
       } else {
         this.gs.messageToast('Something went wrong');
       }
+      this.gs.dissmisLoding();
+      this.isSpinner = false;
     }, err => {
+      this.gs.dissmisLoding();
+      this.isSpinner = false;
       this.gs.messageToast('Something went wrong');
     })
   }
